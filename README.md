@@ -97,3 +97,5 @@ railway up
 ## Legal note
 
 This scraper only accesses publicly visible content — the same data visible to a logged-out user in an incognito browser. A 2024 federal court ruling (Meta v. Bright Data) confirmed that scraping public web data does not violate the CFAA where no technological access barrier is bypassed.
+
+# instagram-scrapper
