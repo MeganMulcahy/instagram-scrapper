@@ -4,7 +4,7 @@ A production-grade Instagram Reel scraper built in Python. Uses a three-layer ap
 
 ## How it works
 
-Requests flow through three layers, each a fallback for the previous:
+Requests flow through four layers, each a fallback for the previous:
 
 ```
 POST /scrape  { url }
@@ -13,11 +13,15 @@ POST /scrape  { url }
       │   httpx + realistic mobile headers + JSON blob extraction
       │   Fast. No browser. Works for most public Reels.
       │
-      ├─ Layer 2: Playwright (headless Chrome)
-      │   Emulates iPhone 14 Pro. Intercepts GraphQL API responses.
-      │   Used when Instagram returns a login wall or empty JSON.
+      ├─ Layer 2: Mobile API
+      │   Hits Instagram's internal mobile endpoints (same as the app).
+      │   Returns clean structured JSON. Less guarded than web HTML.
       │
-      └─ Layer 3: yt-dlp
+      ├─ Layer 3: Playwright (headless Chrome)
+      │   Emulates iPhone 14 Pro. Parses embedded JSON from rendered HTML.
+      │   Used when Instagram returns a login wall or empty data.
+      │
+      └─ Layer 4: yt-dlp
           Battle-tested downloader as final fallback.
           Always gets the video URL if the Reel is public.
 ```
